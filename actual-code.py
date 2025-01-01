@@ -30,21 +30,45 @@ close_button.pack(anchor="ne")
 welcome = ctk.CTkLabel(root, text="Rainy", font=("Source Code Pro", 30, "bold"))
 welcome.place(x=10, y=10)
 
+# Input Entry and Array
 TextArray = []
 
-entry = ctk.CTkEntry(master=root,
-                               placeholder_text="Write your message here...",
-                               font=("Source Code Pro", 30, "italic"),
-                               width=500,
-                               height=25,
-                               border_width=2,
-                               corner_radius=10)
-entry.place(x=500, y=600)
-text = entry.get()
-TextArray.append(text)
+def submit_text():
+    text = entry.get()
+    if text:  # Check if the entry is not empty
+        TextArray.append(text)
+        print(f"Submitted: {text}")
+        entry.delete(0, 'end')  # Clear the entry
 
-for i in TextArray:
-    print(i)
+entry = ctk.CTkEntry(
+    master=root,
+    placeholder_text="Write your message here...",
+    font=("Source Code Pro", 30, "italic"),
+    width=500,
+    height=25,
+    border_width=2,
+    corner_radius=10
+)
+entry.place(x=500, y=600)
+
+# Add an upward arrow button
+def on_arrow_click():
+    label = ctk.CTkLabel(entry.get())
+    label.pack()
+
+arrow_button = ctk.CTkButton(
+    root,
+    text="↑",  # Unicode for upward arrow
+    command=on_arrow_click,
+    font=("Arial", 20, "bold"),
+    fg_color="#ffffff",
+    text_color="black",
+    hover_color="#d3d3d3",
+    corner_radius=30,
+    width=50,
+    height=50
+)
+arrow_button.place(x=700, y=500)
+
 # Start the main loop
 root.mainloop()
-
